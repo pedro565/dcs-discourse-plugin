@@ -1,0 +1,122 @@
+/*******************************************************************************
+	Header
+*******************************************************************************/
+
+/* Smaller navbar */
+/*
+.d-header {
+	height: 3.1em;
+}
+.d-header .contents {
+    margin: 0 0;
+}
+*/
+
+/* Auto-hide header */
+html.dcs-discourse-plugin.dcs-auto-hide-navbar .d-header {
+  top: -56px;
+  transition: top 400ms;
+}
+html.dcs-discourse-plugin.dcs-auto-hide-navbar .d-header.dcs-show {
+  top: 0px;
+}
+html.dcs-discourse-plugin.dcs-auto-hide-navbar #main-outlet {
+  padding-top: 20px;
+}
+
+/* Disable link in title */
+/*
+html.dcs-discourse-plugin .d-header .title {
+  pointer-events: none;
+}
+*/
+/*******************************************************************************
+	Disable tags
+*******************************************************************************/
+
+html.dcs-discourse-plugin.not-admin .list-tags,
+html.dcs-discourse-plugin.not-admin li > a[Title="Tags"],
+html.dcs-discourse-plugin.not-admin .tag-chooser,
+html.dcs-discourse-plugin.not-admin .mini-tag-chooser,
+html.dcs-discourse-plugin.not-admin .tag-show-heading,
+html.dcs-discourse-plugin.not-admin .discourse-tag {
+  display: none;
+}
+
+/*******************************************************************************
+	Disable categories
+
+	Unfortunately, removing the category column entirely is not possible, because 
+	of this: https://meta.discourse.org/t/disabling-categories/12350/6?u=jack2
+*******************************************************************************/
+
+/* Hide the category column title
+Don't use visibility:hidden here, or it will  hide borders also. In admin mode,
+where there are categories (Staff, Lounge), this would create a hole in 
+the table's header */
+html.dcs-discourse-plugin.not-admin th.category {
+  /* The following line is better than opacity:0, because it reduces the column
+	width. Beware: the !important is important for the tag topic list */
+  font-size: 0pt !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+html.dcs-discourse-plugin.not-admin a.badge-category,
+html.dcs-discourse-plugin.not-admin ul.category-links,
+html.dcs-discourse-plugin.not-admin ul.category-links + hr,
+html.dcs-discourse-plugin.not-admin div.category-input,
+html.dcs-discourse-plugin.not-admin div.category-chooser,
+html.dcs-discourse-plugin.not-admin ul#category-filter li:last-of-type,
+html.dcs-discourse-plugin.not-admin .navigation-container .category-breadcrumb,
+html.dcs-discourse-plugin.not-admin
+  .navigation-container
+  li[title='all topics grouped by category'] {
+  display: none !important;
+}
+
+/* Hide category links in topic list footer. This will cause ugly bugs. For 
+example, "There are no more unread topics. Browse all categories or view latest 
+topics" will be turned into
+*/
+html.dcs-discourse-plugin.not-admin
+  footer.topic-list-bottom
+  a[href="/categories"] {
+  display: none;
+}
+
+/* When editing a topic, move back the text preview toward the bottom. This is
+required, cause the fact that we disabled categories and tags had removed
+input fields and now the text preview is too much toward the top
+*/
+html.dcs-discourse-plugin .d-editor-preview-wrapper {
+  margin-top: 0px !important;
+}
+
+/*******************************************************************************
+	Hide the hamburger menu (complex and not very useful)
+*******************************************************************************/
+html.dcs-discourse-plugin.not-admin #toggle-hamburger-menu {
+  display: none;
+}
+
+/*******************************************************************************
+	We do not support "links to individual posts" yet
+*******************************************************************************/
+/* Disable the "share" button */
+html.dcs-discourse-plugin.not-admin button.share {
+  display: none;
+}
+/* Disable the date link, which opens a dialog with a direct link */
+html.dcs-discourse-plugin.not-admin a.post-date {
+  pointer-events: none;
+}
+
+/*******************************************************************************
+	In "one topic" page
+*******************************************************************************/
+
+/* Remove the "suggested topics" footer area */
+html.dcs-discourse-plugin.not-admin #suggested-topics {
+  display: none;
+}
